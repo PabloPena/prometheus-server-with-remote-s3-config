@@ -1,16 +1,16 @@
 #!/bin/sh
 set -e
 
-rm /etc/prometheus/prometheus.yml
+rm /opt/bitnami/prometheus/conf/prometheus.yml -f
 if [[ -z $S3_CONFIG_LOCATION ]]; then
   echo "S3_CONFIG_LOCATION environment variable is mandatory and must be contains a S3 valid URI"
   exit 1
 fi
 
 echo "Retrieving remote prometheus config: '${S3_CONFIG_LOCATION}'"
-aws s3 cp ${S3_CONFIG_LOCATION} /etc/prometheus
+aws s3 cp ${S3_CONFIG_LOCATION} /opt/bitnami/prometheus/conf/prometheus.yml
 
 echo "The following config was loaded:"
-cat /etc/prometheus
+cat /opt/bitnami/prometheus/conf/prometheus.yml
 
-/bin/prometheus $@
+/opt/bitnami/prometheus/bin/prometheus $@

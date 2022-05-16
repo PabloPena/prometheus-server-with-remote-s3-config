@@ -1,11 +1,13 @@
-FROM prom/prometheus:v2.35.0
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+FROM bitnami/prometheus:2.29.1
 USER root
+RUN apt-get update && apt-get install -y awscli
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-USER nobody
+USER 1001
 EXPOSE 9090
 ENTRYPOINT [ "entrypoint.sh" ]
-CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
-             "--storage.tsdb.path=/prometheus", \
-             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
-             "--web.console.templates=/usr/share/prometheus/consoles" ]
+CMD        [ "--config.file=/opt/bitnami/prometheus/conf/prometheus.yml", \
+             "--storage.tsdb.path=/opt/bitnami/prometheus/data", \
+             "--log.format=json", \
+             "--web.console.libraries=/opt/bitnami/prometheus/conf/console_libraries", \
+             "--web.console.templates=/opt/bitnami/prometheus/conf/consoles" ]
