@@ -1,2 +1,6 @@
 .vscode/
 prometheus.yml
+prometheus-no-remote.yml
+Dockerfile-local
+entrypoint-local.sh
+

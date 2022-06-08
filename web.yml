@@ -1,0 +1,2 @@
+basic_auth_users:
+    admin: $ENCRYPTED_WEB_AUTH_PASSWORD
