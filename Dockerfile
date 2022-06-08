@@ -8,7 +8,8 @@ USER root
 
 RUN apt-get update && apt-get install -y awscli && apt-get install -y gettext && apt install -y python3-bcrypt
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY web.yml gen-pass.py /tmp/
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT [ "entrypoint.sh" ]
